@@ -19,13 +19,21 @@ function initCalendar() {
     
     // On mobile, ensure calendar view is shown by default
     if (window.innerWidth <= 768) {
-        const selection = document.getElementById('bookingSelection');
-        if (selection) {
-            selection.classList.remove('show-times');
-        }
+        const calendarSection = document.getElementById('calendarSection');
+        const timeSlotsSection = document.getElementById('timeSlotsSection');
         const mobileBackBtn = document.getElementById('mobileBackToCalendar');
+
+        if (calendarSection) {
+            calendarSection.classList.remove('hidden');
+            calendarSection.classList.add('flex');
+        }
+        if (timeSlotsSection) {
+            timeSlotsSection.classList.add('hidden');
+            timeSlotsSection.classList.remove('flex');
+        }
         if (mobileBackBtn) {
-            mobileBackBtn.style.display = 'none';
+            mobileBackBtn.classList.add('hidden');
+            mobileBackBtn.classList.remove('block');
         }
     }
     
@@ -66,7 +74,7 @@ function updateCalendar() {
     // Add day names
     dayNames.forEach(day => {
         const dayNameEl = document.createElement('div');
-        dayNameEl.className = 'day-name';
+        dayNameEl.className = 'text-center text-xs font-medium text-gray-600 py-3 px-2 uppercase tracking-wider';
         dayNameEl.textContent = day;
         calendarGrid.appendChild(dayNameEl);
     });
@@ -74,7 +82,7 @@ function updateCalendar() {
     // Add empty cells for days before month starts
     for (let i = 0; i < adjustedStartingDay; i++) {
         const emptyDay = document.createElement('div');
-        emptyDay.className = 'calendar-day disabled';
+        emptyDay.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-white/40 opacity-40';
         calendarGrid.appendChild(emptyDay);
     }
     
@@ -85,19 +93,22 @@ function updateCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
         const dayDate = new Date(year, month, day);
         const dayEl = document.createElement('div');
-        dayEl.className = 'calendar-day';
+        dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-medium transition-all duration-300 bg-white/80 text-gray-700 border border-transparent shadow-sm hover:bg-gray-50 hover:border-black/20 hover:text-black hover:-translate-y-0.5 hover:shadow-md';
         dayEl.textContent = day;
         
         // Check if date is in the past
         if (dayDate < today) {
-            dayEl.classList.add('disabled');
+            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-white/50 opacity-40';
         } else {
             dayEl.addEventListener('click', () => selectDate(dayDate));
         }
         
         // Highlight today
         if (dayDate.getTime() === today.getTime()) {
-            dayEl.classList.add('today');
+            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-semibold transition-all duration-300 border-2 border-black bg-gray-50 text-black shadow-md';
+            if (dayDate >= today) {
+                dayEl.addEventListener('click', () => selectDate(dayDate));
+            }
         }
         
         // Highlight selected date
@@ -105,7 +116,8 @@ function updateCalendar() {
             dayDate.getFullYear() === selectedDate.getFullYear() &&
             dayDate.getMonth() === selectedDate.getMonth() &&
             dayDate.getDate() === selectedDate.getDate()) {
-            dayEl.classList.add('selected');
+            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-semibold transition-all duration-300 bg-gradient-to-br from-gray-900 to-gray-800 text-white border-transparent shadow-lg scale-105';
+            dayEl.addEventListener('click', () => selectDate(dayDate));
         }
         
         calendarGrid.appendChild(dayEl);
@@ -127,24 +139,37 @@ function selectDate(date) {
 }
 
 function showMobileTimeSlots() {
-    const selection = document.getElementById('bookingSelection');
+    const calendarSection = document.getElementById('calendarSection');
+    const timeSlotsSection = document.getElementById('timeSlotsSection');
     const mobileBackBtn = document.getElementById('mobileBackToCalendar');
-    
-    if (selection && mobileBackBtn) {
-        selection.classList.add('show-times');
-        mobileBackBtn.style.display = 'block';
+
+    if (calendarSection && timeSlotsSection && mobileBackBtn) {
+        // Hide calendar and show time slots
+        calendarSection.classList.add('hidden');
+        calendarSection.classList.remove('flex');
+        timeSlotsSection.classList.remove('hidden');
+        timeSlotsSection.classList.add('flex');
+        mobileBackBtn.classList.remove('hidden');
+        mobileBackBtn.classList.add('block');
     }
 }
 
 function showMobileCalendar() {
-    const selection = document.getElementById('bookingSelection');
+    const calendarSection = document.getElementById('calendarSection');
+    const timeSlotsSection = document.getElementById('timeSlotsSection');
     const mobileBackBtn = document.getElementById('mobileBackToCalendar');
-    
-    if (selection && mobileBackBtn) {
-        selection.classList.remove('show-times');
-        mobileBackBtn.style.display = 'none';
+
+    if (calendarSection && timeSlotsSection && mobileBackBtn) {
+        // Show calendar and hide time slots
+        calendarSection.classList.remove('hidden');
+        calendarSection.classList.add('flex');
+        timeSlotsSection.classList.add('hidden');
+        timeSlotsSection.classList.remove('flex');
+        mobileBackBtn.classList.add('hidden');
+        mobileBackBtn.classList.remove('block');
         selectedTime = null;
         selectedDate = null; // Clear selected date to go back to calendar
+        updateProgressBar(1);
         updateCalendar();
         generateTimeSlots();
     }
@@ -196,18 +221,18 @@ function generateTimeSlots() {
     // Only render available slots
     if (availableSlots.length === 0) {
         timeSlotsContainer.innerHTML = 
-            '<p class="no-date-selected">Nincs elérhető időpont ezen a napon</p>';
+            '<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal">Nincs elérhető időpont ezen a napon</p>';
         return;
     }
     
     availableSlots.forEach((slot) => {
         const slotEl = document.createElement('div');
-        slotEl.className = 'time-slot';
+        slotEl.className = 'px-5 py-3.5 border border-black/10 rounded-2xl bg-white/90 cursor-pointer text-center text-sm font-medium text-gray-700 transition-all duration-300 w-full h-auto min-h-12 flex items-center justify-center box-border shadow-sm hover:border-black/20 hover:bg-gray-50 hover:text-black hover:-translate-y-0.5 hover:shadow-md';
         slotEl.textContent = slot;
         slotEl.addEventListener('click', () => selectTime(slot));
         
         if (selectedTime === slot) {
-            slotEl.classList.add('selected');
+            slotEl.className = 'px-5 py-3.5 border-transparent rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 text-white cursor-pointer text-center text-sm font-semibold transition-all duration-300 w-full h-auto min-h-12 flex items-center justify-center box-border shadow-lg scale-[1.02]';
         }
         
         timeSlotsContainer.appendChild(slotEl);
@@ -240,8 +265,10 @@ function showBookingSummary() {
         summaryDuration.textContent = `${selectedDuration} perc`;
         
         // Hide selection, show summary
-        selection.style.display = 'none';
-        summary.style.display = 'block';
+        selection.classList.add('hidden');
+        selection.classList.remove('grid');
+        summary.classList.remove('hidden');
+        summary.classList.add('flex');
     }
 }
 
@@ -250,8 +277,10 @@ function showBookingSelection() {
     const selection = document.getElementById('bookingSelection');
     
     // Hide summary, show selection
-    summary.style.display = 'none';
-    selection.style.display = 'grid';
+    summary.classList.add('hidden');
+    summary.classList.remove('flex');
+    selection.classList.remove('hidden');
+    selection.classList.add('grid');
     
     // On mobile, show calendar view
     if (window.innerWidth <= 768) {
