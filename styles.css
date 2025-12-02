@@ -105,9 +105,9 @@ body {
 .main-content {
     padding: 32px 28px;
     background: rgba(255, 255, 255, 0.5);
-    height: 600px;
+    min-height: auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -116,21 +116,17 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
     width: 100%;
-    height: 100%;
     align-items: start;
-}
-
-@media (max-width: 768px) {
-    .booking-selection {
-        display: block;
-    }
 }
 
 @media (max-width: 768px) {
     .main-content {
         padding: 20px 16px;
-        height: auto;
-        min-height: calc(100vh - 120px);
+        min-height: auto;
+    }
+    
+    .booking-selection {
+        display: block;
     }
     
     .booking-selection {
