@@ -124,12 +124,13 @@ body {
 @media (max-width: 768px) {
     .main-content {
         padding: 20px 16px;
-        height: auto;
+        height: 600px;
         min-height: 600px;
     }
     
     .booking-selection {
         display: block;
+        height: 100%;
     }
     
     .booking-selection {
@@ -143,13 +144,13 @@ body {
     .calendar-section {
         display: flex;
         width: 100%;
+        height: 100%;
     }
     
     .time-slots-section {
         display: none !important;
         width: 100%;
-        height: auto;
-        min-height: calc(100vh - 200px);
+        height: 100%;
         flex-direction: column;
         visibility: hidden;
         opacity: 0;
@@ -166,6 +167,7 @@ body {
         display: flex !important;
         visibility: visible;
         opacity: 1;
+        height: 100%;
     }
     
     .booking-selection.show-times .time-slots-section .mobile-back-btn {
@@ -295,9 +297,8 @@ body {
 
 @media (max-width: 768px) {
     .time-slots-section {
-        height: auto;
-        min-height: calc(100vh - 200px);
-    padding: 16px;
+        height: 100%;
+        padding: 16px;
     }
 }
 
