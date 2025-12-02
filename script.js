@@ -96,8 +96,11 @@ function updateCalendar() {
         dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-medium transition-all duration-300 bg-white/80 text-gray-700 border border-transparent shadow-sm hover:bg-gray-50 hover:border-black/20 hover:text-black hover:-translate-y-0.5 hover:shadow-md';
         dayEl.textContent = day;
         
-        // Check if date is in the past
-        if (dayDate < today) {
+        // Check if date is in the past or not Monday/Wednesday
+        const dayOfWeek = dayDate.getDay();
+        const isPickableDay = dayOfWeek === 1 || dayOfWeek === 3; // Monday = 1, Wednesday = 3
+
+        if (dayDate < today || !isPickableDay) {
             dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-white/50 opacity-40';
         } else {
             dayEl.addEventListener('click', () => selectDate(dayDate));
@@ -105,9 +108,11 @@ function updateCalendar() {
         
         // Highlight today
         if (dayDate.getTime() === today.getTime()) {
-            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-semibold transition-all duration-300 border-2 border-black bg-gray-50 text-black shadow-md';
-            if (dayDate >= today) {
+            if (isPickableDay && dayDate >= today) {
+                dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-semibold transition-all duration-300 border-2 border-black bg-gray-50 text-black shadow-md';
                 dayEl.addEventListener('click', () => selectDate(dayDate));
+            } else {
+                dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-white/50 opacity-40';
             }
         }
         
