@@ -533,7 +533,7 @@ body {
 }
 
 .booking-summary h3 {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 16px;
@@ -565,13 +565,13 @@ body {
 }
 
 .summary-item .label {
-    font-size: 13px;
+    font-size: 14px;
     color: #666666;
     font-weight: 500;
 }
 
 .summary-item .value {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #1a1a1a;
 }
@@ -590,7 +590,7 @@ body {
 }
 
 .form-group label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: #333333;
     letter-spacing: -0.1px;
