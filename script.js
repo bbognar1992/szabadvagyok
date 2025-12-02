@@ -104,7 +104,7 @@ function selectDate(date) {
     selectedTime = null;
     updateCalendar();
     generateTimeSlots();
-    hideBookingSummary();
+    showBookingSelection();
 }
 
 function updateSelectedDateDisplay() {
@@ -180,6 +180,7 @@ function selectTime(time) {
 function showBookingSummary() {
     if (selectedDate && selectedTime) {
         const summary = document.getElementById('bookingSummary');
+        const selection = document.getElementById('bookingSelection');
         const summaryDate = document.getElementById('summaryDate');
         const summaryTime = document.getElementById('summaryTime');
         const summaryDuration = document.getElementById('summaryDuration');
@@ -195,12 +196,19 @@ function showBookingSummary() {
         summaryTime.textContent = selectedTime;
         summaryDuration.textContent = `${selectedDuration} perc`;
         
+        // Hide selection, show summary
+        selection.style.display = 'none';
         summary.style.display = 'block';
     }
 }
 
-function hideBookingSummary() {
-    document.getElementById('bookingSummary').style.display = 'none';
+function showBookingSelection() {
+    const summary = document.getElementById('bookingSummary');
+    const selection = document.getElementById('bookingSelection');
+    
+    // Hide summary, show selection
+    summary.style.display = 'none';
+    selection.style.display = 'grid';
 }
 
 function setupEventListeners() {
@@ -215,11 +223,47 @@ function setupEventListeners() {
         updateCalendar();
     });
     
+    // Back button
+    document.getElementById('backToSelection').addEventListener('click', () => {
+        showBookingSelection();
+    });
+    
     // Confirm booking button
     document.getElementById('confirmBooking').addEventListener('click', () => {
+        const guestName = document.getElementById('guestName').value.trim();
+        const guestEmail = document.getElementById('guestEmail').value.trim();
+        
+        // Validation
+        if (!guestName) {
+            alert('Kérjük, add meg a neved!');
+            document.getElementById('guestName').focus();
+            return;
+        }
+        
+        if (!guestEmail) {
+            alert('Kérjük, add meg az email címed!');
+            document.getElementById('guestEmail').focus();
+            return;
+        }
+        
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(guestEmail)) {
+            alert('Kérjük, adj meg egy érvényes email címet!');
+            document.getElementById('guestEmail').focus();
+            return;
+        }
+        
         if (selectedDate && selectedTime) {
-            alert(`Foglalás megerősítve!\n\nDátum: ${selectedDate.toLocaleDateString('hu-HU')}\nIdőpont: ${selectedTime}\nIdőtartam: ${selectedDuration} perc`);
+            alert(`Foglalás megerősítve!\n\nNév: ${guestName}\nEmail: ${guestEmail}\nDátum: ${selectedDate.toLocaleDateString('hu-HU')}\nIdőpont: ${selectedTime}\nIdőtartam: ${selectedDuration} perc`);
             // Here you would typically send the booking to a backend API
+            // const bookingData = {
+            //     name: guestName,
+            //     email: guestEmail,
+            //     date: selectedDate,
+            //     time: selectedTime,
+            //     duration: selectedDuration
+            // };
         }
     });
 }
