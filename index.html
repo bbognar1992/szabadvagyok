@@ -50,20 +50,21 @@
 
                 <!-- Booking Summary -->
                 <div class="booking-summary" id="bookingSummary" style="display: none;">
-                    <button class="back-btn" id="backToSelection">← Vissza</button>
                     <h3>Foglalás összefoglalója</h3>
                     <div class="summary-details">
                         <div class="summary-item">
-                            <span class="label">Dátum:</span>
-                            <span class="value" id="summaryDate">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="label">Időpont:</span>
-                            <span class="value" id="summaryTime">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="label">Időtartam:</span>
-                            <span class="value" id="summaryDuration">-</span>
+                            <div class="summary-row">
+                                <span class="label">Dátum:</span>
+                                <span class="value" id="summaryDate">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="label">Időpont:</span>
+                                <span class="value" id="summaryTime">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="label">Időtartam:</span>
+                                <span class="value" id="summaryDuration">-</span>
+                            </div>
                         </div>
                     </div>
                     <div class="contact-form">
@@ -76,7 +77,10 @@
                             <input type="email" id="guestEmail" class="form-input" placeholder="Add meg az email címed" required>
                         </div>
                     </div>
-                    <button class="book-btn" id="confirmBooking">Foglalás megerősítése</button>
+                    <div class="booking-actions">
+                        <button class="book-btn" id="confirmBooking">Foglalás megerősítése</button>
+                        <button class="cancel-btn" id="backToSelection">Mégse</button>
+                    </div>
                 </div>
             </div>
         </div>
