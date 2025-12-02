@@ -121,15 +121,56 @@ body {
 }
 
 @media (max-width: 768px) {
+    .booking-selection {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
     .main-content {
-        padding: 24px;
+        padding: 20px 16px;
         height: auto;
-        min-height: 600px;
+        min-height: calc(100vh - 120px);
     }
     
     .booking-selection {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 0;
+        width: 100%;
+        position: relative;
+    }
+    
+    /* Mobile: Show calendar by default, completely hide time slots */
+    .calendar-section {
+        display: flex;
+        width: 100%;
+    }
+    
+    .time-slots-section {
+        display: none !important;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 200px);
+        flex-direction: column;
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    /* When date is selected on mobile, show time slots and hide calendar */
+    .booking-selection.show-times .calendar-section {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    .booking-selection.show-times .time-slots-section {
+        display: flex !important;
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .booking-selection.show-times .time-slots-section .mobile-back-btn {
+        display: block !important;
     }
 }
 
@@ -246,6 +287,14 @@ body {
     border-radius: 16px;
     border: 1px solid rgba(226, 232, 240, 0.6);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 768px) {
+    .time-slots-section {
+        height: auto;
+        min-height: calc(100vh - 200px);
+        padding: 16px;
+    }
 }
 
 .section-title {
@@ -430,6 +479,32 @@ body {
     background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
     border-color: #667eea;
     transform: translateX(-2px);
+}
+
+.mobile-back-btn {
+    background: transparent;
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
+    color: #667eea;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.mobile-back-btn:hover {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    border-color: #667eea;
+}
+
+@media (min-width: 769px) {
+    .mobile-back-btn {
+        display: none !important;
+    }
 }
 
 .booking-summary h3 {

@@ -16,6 +16,19 @@ function initCalendar() {
     setupEventListeners();
     generateTimeSlots();
     updateTimezoneDisplay();
+    
+    // On mobile, ensure calendar view is shown by default
+    if (window.innerWidth <= 768) {
+        const selection = document.getElementById('bookingSelection');
+        if (selection) {
+            selection.classList.remove('show-times');
+        }
+        const mobileBackBtn = document.getElementById('mobileBackToCalendar');
+        if (mobileBackBtn) {
+            mobileBackBtn.style.display = 'none';
+        }
+    }
+    
     // Update time every minute
     setInterval(updateTimezoneDisplay, 60000);
 }
@@ -104,7 +117,37 @@ function selectDate(date) {
     selectedTime = null;
     updateCalendar();
     generateTimeSlots();
-    showBookingSelection();
+    
+    // On mobile, switch to time slots view
+    if (window.innerWidth <= 768) {
+        showMobileTimeSlots();
+    } else {
+        showBookingSelection();
+    }
+}
+
+function showMobileTimeSlots() {
+    const selection = document.getElementById('bookingSelection');
+    const mobileBackBtn = document.getElementById('mobileBackToCalendar');
+    
+    if (selection && mobileBackBtn) {
+        selection.classList.add('show-times');
+        mobileBackBtn.style.display = 'block';
+    }
+}
+
+function showMobileCalendar() {
+    const selection = document.getElementById('bookingSelection');
+    const mobileBackBtn = document.getElementById('mobileBackToCalendar');
+    
+    if (selection && mobileBackBtn) {
+        selection.classList.remove('show-times');
+        mobileBackBtn.style.display = 'none';
+        selectedTime = null;
+        selectedDate = null; // Clear selected date to go back to calendar
+        updateCalendar();
+        generateTimeSlots();
+    }
 }
 
 function updateSelectedDateDisplay() {
@@ -209,6 +252,11 @@ function showBookingSelection() {
     // Hide summary, show selection
     summary.style.display = 'none';
     selection.style.display = 'grid';
+    
+    // On mobile, show calendar view
+    if (window.innerWidth <= 768) {
+        showMobileCalendar();
+    }
 }
 
 function setupEventListeners() {
@@ -227,6 +275,14 @@ function setupEventListeners() {
     document.getElementById('backToSelection').addEventListener('click', () => {
         showBookingSelection();
     });
+    
+    // Mobile back to calendar button
+    const mobileBackBtn = document.getElementById('mobileBackToCalendar');
+    if (mobileBackBtn) {
+        mobileBackBtn.addEventListener('click', () => {
+            showMobileCalendar();
+        });
+    }
     
     // Confirm booking button
     document.getElementById('confirmBooking').addEventListener('click', () => {
