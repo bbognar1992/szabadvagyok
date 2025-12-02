@@ -709,3 +709,28 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 20px 24px;
+    margin-top: 24px;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: #666666;
+    font-weight: 400;
+}
+
+.footer-text a {
+    color: #333333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-text a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
