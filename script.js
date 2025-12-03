@@ -4,6 +4,7 @@ let selectedDate = null;
 let selectedTime = null;
 let selectedDuration = 15;
 let currentStep = 1;
+let currentTimeTab = 'morning'; // 'morning' or 'afternoon'
 
 const dayNames = ['H', 'K', 'Sz', 'Cs', 'P', 'Sz', 'V'];
 const monthNames = [
@@ -17,6 +18,7 @@ function initCalendar() {
     setupEventListeners();
     updateTimezoneDisplay();
     updateProgressIndicator();
+    updateTabStyles();
     showStep(1); // Start with step 1
 
     // Update time every minute
@@ -231,50 +233,90 @@ function updateSelectedDateDisplay() {
 function generateTimeSlots() {
     const timeSlotsContainer = document.getElementById('timeSlots');
     timeSlotsContainer.innerHTML = '';
-    
+
     if (!selectedDate) {
         timeSlotsContainer.innerHTML =
             '<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 rounded-xl">Időpontok betöltése...</p>';
         return;
     }
-    
-    // Generate time slots (9 AM to 5 PM, every 15 minutes)
-    const allSlots = [];
-    const startHour = 9;
-    const endHour = 17;
-    
-    for (let hour = startHour; hour < endHour; hour++) {
-        for (let minute = 0; minute < 60; minute += 15) {
-            const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-            allSlots.push(timeString);
+
+    let slots = [];
+    let emptyMessage = '';
+
+    if (currentTimeTab === 'morning') {
+        // Generate morning slots (9 AM to 12 PM)
+        for (let hour = 9; hour < 12; hour++) {
+            for (let minute = 0; minute < 60; minute += 15) {
+                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                slots.push(timeString);
+            }
         }
+        emptyMessage = '😔 Nincs elérhető reggeli időpont';
+    } else {
+        // Generate afternoon slots (12 PM to 5 PM)
+        for (let hour = 12; hour < 17; hour++) {
+            for (let minute = 0; minute < 60; minute += 15) {
+                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                slots.push(timeString);
+            }
+        }
+        emptyMessage = '😔 Nincs elérhető délutáni időpont';
     }
-    
+
     // Filter to only available slots (randomly exclude ~30% for realism)
-    const availableSlots = allSlots.filter((slot, index) => {
-        // Keep first slot and randomly keep ~70% of others
+    const availableSlots = slots.filter((slot, index) => {
         return index === 0 || Math.random() >= 0.3;
     });
-    
-    // Only render available slots
+
+    // Render slots
     if (availableSlots.length === 0) {
         timeSlotsContainer.innerHTML =
-            '<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 rounded-xl">😔 Nincs elérhető időpont ezen a napon</p>';
+            `<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 rounded-xl">${emptyMessage}</p>`;
         return;
     }
-    
+
+    // Create grid container
+    const gridContainer = document.createElement('div');
+    gridContainer.className = 'grid grid-cols-2 sm:grid-cols-3 gap-3';
+
     availableSlots.forEach((slot) => {
-        const slotEl = document.createElement('div');
-        slotEl.className = 'px-3 py-2 border-2 border-white/30 rounded-xl bg-gradient-to-r from-white/90 to-playful-blue/10 cursor-pointer text-center text-xs font-bold text-gray-700 transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-lg hover:border-playful-purple/50 hover:bg-gradient-to-r hover:from-playful-purple hover:to-playful-pink hover:text-white hover:-translate-y-1 hover:shadow-xl hover:scale-105 backdrop-blur-sm';
-        slotEl.textContent = slot;
-        slotEl.addEventListener('click', () => selectTime(slot));
-
-        if (selectedTime === slot) {
-            slotEl.className = 'px-3 py-2 border-transparent rounded-xl bg-gradient-to-br from-playful-purple via-playful-pink to-playful-orange text-white cursor-pointer text-center text-xs font-bold transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-2xl scale-110 animate-pulse';
-        }
-
-        timeSlotsContainer.appendChild(slotEl);
+        const slotEl = createTimeSlotElement(slot);
+        gridContainer.appendChild(slotEl);
     });
+
+    timeSlotsContainer.appendChild(gridContainer);
+}
+
+function createTimeSlotElement(slot) {
+    const slotEl = document.createElement('div');
+    slotEl.className = 'px-3 py-2 border-2 border-white/30 rounded-xl bg-gradient-to-r from-white/90 to-playful-blue/10 cursor-pointer text-center text-xs font-bold text-gray-700 transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-lg hover:border-playful-purple/50 hover:bg-gradient-to-r hover:from-playful-purple hover:to-playful-pink hover:text-white hover:-translate-y-1 hover:shadow-xl hover:scale-105 backdrop-blur-sm';
+    slotEl.textContent = slot;
+    slotEl.addEventListener('click', () => selectTime(slot));
+
+    if (selectedTime === slot) {
+        slotEl.className = 'px-3 py-2 border-transparent rounded-xl bg-gradient-to-br from-playful-purple via-playful-pink to-playful-orange text-white cursor-pointer text-center text-xs font-bold transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-2xl scale-110 animate-pulse';
+    }
+
+    return slotEl;
+}
+
+function switchTimeTab(tab) {
+    currentTimeTab = tab;
+    updateTabStyles();
+    generateTimeSlots();
+}
+
+function updateTabStyles() {
+    const morningTab = document.getElementById('morningTab');
+    const afternoonTab = document.getElementById('afternoonTab');
+
+    if (currentTimeTab === 'morning') {
+        morningTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
+        afternoonTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
+    } else {
+        morningTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
+        afternoonTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
+    }
 }
 
 function selectTime(time) {
@@ -333,6 +375,10 @@ function setupEventListeners() {
     if (backToTimeSelectionBtn) {
         backToTimeSelectionBtn.addEventListener('click', goBackToTimeSelection);
     }
+
+    // Time slot tabs
+    document.getElementById('morningTab').addEventListener('click', () => switchTimeTab('morning'));
+    document.getElementById('afternoonTab').addEventListener('click', () => switchTimeTab('afternoon'));
 
     // Confirm booking button
     document.getElementById('confirmBooking').addEventListener('click', () => {
