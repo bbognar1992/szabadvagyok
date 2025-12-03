@@ -61,21 +61,18 @@
             <!-- Main Content -->
             <div class="p-6 sm:p-8 bg-white/95 min-h-[700px] max-h-[900px] flex flex-col items-center relative overflow-y-auto">
                 <!-- Progress Indicator -->
-                <div class="flex items-center justify-center mb-8 w-full max-w-md">
+                <div class="flex items-center justify-center mb-8 w-full max-w-xs">
                     <div class="flex items-center space-x-4">
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 rounded-full bg-playful-purple flex items-center justify-center text-white font-bold text-sm transition-all duration-300" id="step1">1</div>
-                            <span class="ml-2 text-sm font-medium text-gray-600">Dátum</span>
+                        <div class="cursor-pointer" onclick="goToStep(1)">
+                            <div class="w-8 h-8 rounded-full bg-playful-purple flex items-center justify-center text-white font-bold text-sm transition-all duration-300 hover:scale-110" id="step1">1</div>
                         </div>
-                        <div class="w-8 h-0.5 bg-gray-300 transition-all duration-300" id="progress1"></div>
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-sm transition-all duration-300" id="step2">2</div>
-                            <span class="ml-2 text-sm font-medium text-gray-400">Idő</span>
+                        <div class="w-8 h-0.5 bg-gray-300 transition-all duration-300 cursor-pointer" id="progress1" onclick="goToStep(1)"></div>
+                        <div class="cursor-pointer" onclick="goToStep(2)">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-sm transition-all duration-300 hover:scale-110" id="step2">2</div>
                         </div>
-                        <div class="w-8 h-0.5 bg-gray-300 transition-all duration-300" id="progress2"></div>
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-sm transition-all duration-300" id="step3">3</div>
-                            <span class="ml-2 text-sm font-medium text-gray-400">Foglalás</span>
+                        <div class="w-8 h-0.5 bg-gray-300 transition-all duration-300 cursor-pointer" id="progress2" onclick="goToStep(2)"></div>
+                        <div class="cursor-pointer" onclick="goToStep(3)">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-sm transition-all duration-300 hover:scale-110" id="step3">3</div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +100,7 @@
                     </div>
 
                     <!-- Step 2: Time Selection -->
-                    <div class="step-content hidden flex flex-col justify-between min-h-[600px]" id="stepTimeSelection">
+                    <div class="step-content hidden" id="stepTimeSelection">
                         <div>
                             <div class="text-center mb-8">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">Válassz egy időpontot ⏰</h2>
@@ -111,7 +108,7 @@
                             </div>
 
                             <!-- Time Slots Section -->
-                            <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" id="timeSlotsSection">
+                            <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 mb-8" id="timeSlotsSection">
                                 <div class="flex items-center gap-3 mb-6 text-sm">
                                     <span class="text-playful-purple font-bold">⏰ Idő</span>
                                     <span class="text-gray-600 font-medium" id="timezoneDisplay">Central European Time (16:01)</span>
@@ -122,15 +119,11 @@
                             </div>
                         </div>
 
-                        <!-- Back Button -->
-                        <div class="flex justify-center mt-8">
-                            <button class="flex-1 bg-white/90 backdrop-blur-sm border-2 border-white/30 text-gray-700 rounded-xl py-4 px-6 font-semibold cursor-pointer transition-all duration-300 shadow-lg hover:bg-white hover:border-playful-purple/30 hover:shadow-xl hover:scale-105 max-w-xs" id="backToCalendar">← Vissza a dátumhoz</button>
-                        </div>
                     </div>
                 </div>
 
                     <!-- Step 3: Booking Details -->
-                    <div class="step-content hidden flex flex-col justify-between min-h-[600px]" id="stepBookingDetails">
+                    <div class="step-content hidden" id="stepBookingDetails">
                         <div>
                             <div class="text-center mb-8">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">Foglalás részletei 📝</h2>
@@ -161,14 +154,10 @@
                         </div>
 
                         <!-- Confirm Button -->
-                        <div class="flex justify-center mb-8">
+                        <div class="flex justify-center mt-12 mb-8">
                             <button class="bg-gradient-to-r from-playful-purple via-playful-pink to-playful-orange text-white border-none rounded-xl py-4 px-8 font-bold cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" id="confirmBooking" disabled>🚀 Foglalás megerősítése</button>
                         </div>
 
-                        <!-- Back Button -->
-                        <div class="flex justify-center">
-                            <button class="flex-1 bg-white/90 backdrop-blur-sm border-2 border-white/30 text-gray-700 rounded-xl py-4 px-6 font-semibold cursor-pointer transition-all duration-300 shadow-lg hover:bg-white hover:border-playful-purple/30 hover:shadow-xl hover:scale-105 max-w-xs" id="backToTimeSelection">← Vissza az időponthoz</button>
-                        </div>
                     </div>
                 </div>
             </div>

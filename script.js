@@ -112,6 +112,18 @@ function goBackToTimeSelection() {
     showStep(2);
 }
 
+function goToStep(stepNumber) {
+    // Allow going back to previous steps, but not forward beyond current progress
+    if (stepNumber === 1) {
+        goBackToCalendar();
+    } else if (stepNumber === 2 && selectedDate) {
+        showStep(2);
+    } else if (stepNumber === 3 && selectedDate && selectedTime) {
+        showStep(3);
+    }
+    // If trying to go to a step that's not accessible, do nothing
+}
+
 function updateCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
