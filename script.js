@@ -52,15 +52,15 @@ function updateProgressIndicator() {
 
     // Update based on current step
     if (currentStep >= 1) {
-        step1.className = 'w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
+        step1.className = 'w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
     }
     if (currentStep >= 2) {
-        step2.className = 'w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
-        progress1.className = 'w-8 h-0.5 bg-blue-600 transition-all duration-200';
+        step2.className = 'w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
+        progress1.className = 'w-8 h-0.5 bg-green-600 transition-all duration-200';
     }
     if (currentStep >= 3) {
-        step3.className = 'w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
-        progress2.className = 'w-8 h-0.5 bg-blue-600 transition-all duration-200';
+        step3.className = 'w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all duration-200';
+        progress2.className = 'w-8 h-0.5 bg-green-600 transition-all duration-200';
     }
 }
 
@@ -149,7 +149,7 @@ function updateCalendar() {
     // Add day names
     dayNames.forEach(day => {
         const dayNameEl = document.createElement('div');
-        dayNameEl.className = 'text-center text-xs font-semibold text-blue-600 py-4 px-2 uppercase tracking-wide';
+        dayNameEl.className = 'text-center text-xs font-semibold text-green-600 py-4 px-2 uppercase tracking-wide';
         dayNameEl.textContent = day;
         calendarGrid.appendChild(dayNameEl);
     });
@@ -168,7 +168,7 @@ function updateCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
         const dayDate = new Date(year, month, day);
         const dayEl = document.createElement('div');
-        dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-medium transition-all duration-200 text-gray-700 border border-gray-200 rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300';
+        dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-medium transition-all duration-200 text-gray-700 border border-gray-200 rounded-lg hover:bg-green-50 hover:text-green-600 hover:border-green-300';
         dayEl.textContent = day;
         
         // Check if date is in the past or not Monday/Wednesday
@@ -184,7 +184,7 @@ function updateCalendar() {
         // Highlight today
         if (dayDate.getTime() === today.getTime()) {
             if (isPickableDay && dayDate >= today) {
-                dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 border-2 border-blue-500 bg-blue-50 text-blue-600 rounded-lg';
+                dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 border-2 border-green-500 bg-green-50 text-green-600 rounded-lg';
                 dayEl.addEventListener('click', () => selectDate(dayDate));
             } else {
                 dayEl.className = 'aspect-square flex items-center justify-center cursor-not-allowed text-gray-400 bg-gray-100 opacity-60 border border-gray-200 rounded-lg';
@@ -196,7 +196,7 @@ function updateCalendar() {
             dayDate.getFullYear() === selectedDate.getFullYear() &&
             dayDate.getMonth() === selectedDate.getMonth() &&
             dayDate.getDate() === selectedDate.getDate()) {
-            dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 bg-blue-600 text-white border-transparent rounded-lg shadow-sm';
+            dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 bg-green-600 text-white border-transparent rounded-lg shadow-sm';
             dayEl.addEventListener('click', () => selectDate(dayDate));
         }
         
@@ -226,7 +226,7 @@ function updateSelectedDateDisplay() {
             weekday: 'long'
         };
         const dateText = selectedDate.toLocaleDateString('hu-HU', options);
-        dateDisplay.innerHTML = `Kiválasztott dátum: <span class="font-semibold text-blue-600">${dateText}</span>`;
+        dateDisplay.innerHTML = `Kiválasztott dátum: <span class="font-semibold text-green-600">${dateText}</span>`;
     }
 }
 
@@ -297,12 +297,12 @@ function generateTimeSlots() {
 
 function createTimeSlotElement(slot) {
     const slotEl = document.createElement('div');
-    slotEl.className = 'px-3 py-2 border border-gray-300 bg-white cursor-pointer text-center text-sm font-medium text-gray-700 transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300';
+    slotEl.className = 'px-3 py-2 border border-gray-300 bg-white cursor-pointer text-center text-sm font-medium text-gray-700 transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border rounded-lg hover:bg-green-50 hover:text-green-600 hover:border-green-300';
     slotEl.textContent = slot;
     slotEl.addEventListener('click', () => selectTime(slot));
 
     if (selectedTime === slot) {
-        slotEl.className = 'px-3 py-2 border-blue-500 bg-blue-600 text-white cursor-pointer text-center text-sm font-medium transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border rounded-lg shadow-sm';
+        slotEl.className = 'px-3 py-2 border-green-500 bg-green-600 text-white cursor-pointer text-center text-sm font-medium transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border rounded-lg shadow-sm';
     }
 
     return slotEl;
@@ -318,9 +318,9 @@ function updateTabStyles() {
     for (let i = 1; i <= 6; i++) {
         const tabElement = document.getElementById(`interval${i}Tab`);
         if (i === currentTimeTab) {
-            tabElement.className = 'py-3 px-4 text-sm font-medium transition-all duration-200 bg-blue-600 text-white rounded-lg shadow-sm';
+            tabElement.className = 'py-3 px-4 text-sm font-medium transition-all duration-200 bg-green-600 text-white rounded-lg shadow-sm';
         } else {
-            tabElement.className = 'py-3 px-4 text-sm font-medium transition-all duration-200 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg border border-gray-200';
+            tabElement.className = 'py-3 px-4 text-sm font-medium transition-all duration-200 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg border border-gray-200';
         }
     }
 }
