@@ -4,7 +4,7 @@ let selectedDate = null;
 let selectedTime = null;
 let selectedDuration = 15;
 let currentStep = 1;
-let currentTimeTab = 'morning'; // 'morning' or 'afternoon'
+let currentTimeTab = 1; // 1-6 for the 6 time intervals
 
 const dayNames = ['H', 'K', 'Sz', 'Cs', 'P', 'Sz', 'V'];
 const monthNames = [
@@ -243,24 +243,32 @@ function generateTimeSlots() {
     let slots = [];
     let emptyMessage = '';
 
-    if (currentTimeTab === 'morning') {
-        // Generate morning slots (9 AM to 12 PM)
-        for (let hour = 9; hour < 12; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
-                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                slots.push(timeString);
+    // Define time intervals (2-hour blocks from 8 AM to 8 PM)
+    const intervals = [
+        { start: { hour: 8, minute: 0 }, end: { hour: 10, minute: 0 } },    // 8:00-10:00
+        { start: { hour: 10, minute: 0 }, end: { hour: 12, minute: 0 } },  // 10:00-12:00
+        { start: { hour: 12, minute: 0 }, end: { hour: 14, minute: 0 } },  // 12:00-14:00
+        { start: { hour: 14, minute: 0 }, end: { hour: 16, minute: 0 } },  // 14:00-16:00
+        { start: { hour: 16, minute: 0 }, end: { hour: 18, minute: 0 } },  // 16:00-18:00
+        { start: { hour: 18, minute: 0 }, end: { hour: 20, minute: 0 } }   // 18:00-20:00
+    ];
+
+    const interval = intervals[currentTimeTab - 1];
+    if (interval) {
+        let currentHour = interval.start.hour;
+        let currentMinute = interval.start.minute;
+
+        while (currentHour < interval.end.hour || (currentHour === interval.end.hour && currentMinute < interval.end.minute)) {
+            const timeString = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`;
+            slots.push(timeString);
+
+            currentMinute += 15;
+            if (currentMinute >= 60) {
+                currentMinute = 0;
+                currentHour++;
             }
         }
-        emptyMessage = '😔 Nincs elérhető reggeli időpont';
-    } else {
-        // Generate afternoon slots (12 PM to 5 PM)
-        for (let hour = 12; hour < 17; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
-                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                slots.push(timeString);
-            }
-        }
-        emptyMessage = '😔 Nincs elérhető délutáni időpont';
+        emptyMessage = `😔 Nincs elérhető időpont ${currentTimeTab}. intervallumban`;
     }
 
     // Filter to only available slots (randomly exclude ~30% for realism)
@@ -307,15 +315,13 @@ function switchTimeTab(tab) {
 }
 
 function updateTabStyles() {
-    const morningTab = document.getElementById('morningTab');
-    const afternoonTab = document.getElementById('afternoonTab');
-
-    if (currentTimeTab === 'morning') {
-        morningTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
-        afternoonTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
-    } else {
-        morningTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
-        afternoonTab.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
+    for (let i = 1; i <= 6; i++) {
+        const tabElement = document.getElementById(`interval${i}Tab`);
+        if (i === currentTimeTab) {
+            tabElement.className = 'py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
+        } else {
+            tabElement.className = 'py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
+        }
     }
 }
 
@@ -377,8 +383,9 @@ function setupEventListeners() {
     }
 
     // Time slot tabs
-    document.getElementById('morningTab').addEventListener('click', () => switchTimeTab('morning'));
-    document.getElementById('afternoonTab').addEventListener('click', () => switchTimeTab('afternoon'));
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`interval${i}Tab`).addEventListener('click', () => switchTimeTab(i));
+    }
 
     // Confirm booking button
     document.getElementById('confirmBooking').addEventListener('click', () => {

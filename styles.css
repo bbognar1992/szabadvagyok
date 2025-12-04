@@ -1,24 +1,4 @@
-/* Custom Tailwind CSS overrides and mobile-specific styles */
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-    .main-content {
-        height: 600px;
-        min-height: 600px;
-    }
-    
-    .booking-selection.show-times .calendar-section {
-        display: none !important;
-    }
-    
-    .booking-selection.show-times .time-slots-section {
-        display: flex !important;
-    }
-    
-    .time-slots-section {
-        height: 100%;
-    }
-}
+/* Custom Tailwind CSS overrides */
 
 /* Custom scrollbar styles */
 .time-slots::-webkit-scrollbar {
