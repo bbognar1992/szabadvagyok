@@ -52,15 +52,15 @@ function updateProgressIndicator() {
 
     // Update based on current step
     if (currentStep >= 1) {
-        step1.className = 'w-8 h-8 rounded-full bg-playful-purple flex items-center justify-center text-white font-bold text-sm transition-all duration-300';
+        step1.className = 'w-8 h-8 bg-cyan-400 flex items-center justify-center text-black font-bold text-sm transition-all duration-200';
     }
     if (currentStep >= 2) {
-        step2.className = 'w-8 h-8 rounded-full bg-playful-purple flex items-center justify-center text-white font-bold text-sm transition-all duration-300';
-        progress1.className = 'w-8 h-0.5 bg-playful-purple transition-all duration-300';
+        step2.className = 'w-8 h-8 bg-cyan-400 flex items-center justify-center text-black font-bold text-sm transition-all duration-200';
+        progress1.className = 'w-8 h-0.5 bg-cyan-400 transition-all duration-200';
     }
     if (currentStep >= 3) {
-        step3.className = 'w-8 h-8 rounded-full bg-playful-purple flex items-center justify-center text-white font-bold text-sm transition-all duration-300';
-        progress2.className = 'w-8 h-0.5 bg-playful-purple transition-all duration-300';
+        step3.className = 'w-8 h-8 bg-cyan-400 flex items-center justify-center text-black font-bold text-sm transition-all duration-200';
+        progress2.className = 'w-8 h-0.5 bg-cyan-400 transition-all duration-200';
     }
 }
 
@@ -149,7 +149,7 @@ function updateCalendar() {
     // Add day names
     dayNames.forEach(day => {
         const dayNameEl = document.createElement('div');
-        dayNameEl.className = 'text-center text-xs font-bold bg-gradient-to-r from-playful-purple to-playful-pink bg-clip-text text-transparent py-4 px-2 uppercase tracking-wider';
+        dayNameEl.className = 'text-center text-xs font-bold text-cyan-400 py-4 px-2 uppercase tracking-wider';
         dayNameEl.textContent = day;
         calendarGrid.appendChild(dayNameEl);
     });
@@ -168,7 +168,7 @@ function updateCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
         const dayDate = new Date(year, month, day);
         const dayEl = document.createElement('div');
-        dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-bold transition-all duration-300 bg-gradient-to-br from-white to-playful-purple/10 text-gray-700 border-2 border-white/30 shadow-lg hover:bg-gradient-to-br hover:from-playful-purple hover:to-playful-pink hover:text-white hover:-translate-y-1 hover:shadow-xl hover:scale-110 hover:border-transparent';
+        dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 text-gray-300 border border-gray-600 hover:bg-gray-700 hover:text-white hover:border-cyan-400';
         dayEl.textContent = day;
         
         // Check if date is in the past or not Monday/Wednesday
@@ -176,7 +176,7 @@ function updateCalendar() {
         const isPickableDay = dayOfWeek === 1 || dayOfWeek === 3; // Monday = 1, Wednesday = 3
 
         if (dayDate < today || !isPickableDay) {
-            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-gradient-to-br from-gray-100/50 to-gray-200/50 opacity-40 border-2 border-gray-200/30';
+            dayEl.className = 'aspect-square flex items-center justify-center cursor-not-allowed text-gray-600 bg-gray-900 opacity-40 border border-gray-800';
         } else {
             dayEl.addEventListener('click', () => selectDate(dayDate));
         }
@@ -184,10 +184,10 @@ function updateCalendar() {
         // Highlight today
         if (dayDate.getTime() === today.getTime()) {
             if (isPickableDay && dayDate >= today) {
-                dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-bold transition-all duration-300 border-3 border-playful-orange bg-gradient-to-br from-playful-orange/20 to-playful-pink/20 text-playful-orange shadow-xl animate-pulse';
+                dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 border-2 border-cyan-400 bg-cyan-400/10 text-cyan-400';
                 dayEl.addEventListener('click', () => selectDate(dayDate));
             } else {
-                dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-not-allowed text-gray-300 bg-gradient-to-br from-gray-100/50 to-gray-200/50 opacity-40 border-2 border-gray-200/30';
+                dayEl.className = 'aspect-square flex items-center justify-center cursor-not-allowed text-gray-600 bg-gray-900 opacity-40 border border-gray-800';
             }
         }
         
@@ -196,7 +196,7 @@ function updateCalendar() {
             dayDate.getFullYear() === selectedDate.getFullYear() &&
             dayDate.getMonth() === selectedDate.getMonth() &&
             dayDate.getDate() === selectedDate.getDate()) {
-            dayEl.className = 'aspect-square flex items-center justify-center rounded-2xl cursor-pointer text-sm font-bold transition-all duration-300 bg-gradient-to-br from-playful-purple via-playful-pink to-playful-orange text-white border-transparent shadow-2xl scale-110 animate-bounce';
+            dayEl.className = 'aspect-square flex items-center justify-center cursor-pointer text-sm font-bold transition-all duration-200 bg-cyan-400 text-black border-transparent scale-105';
             dayEl.addEventListener('click', () => selectDate(dayDate));
         }
         
@@ -226,7 +226,7 @@ function updateSelectedDateDisplay() {
             weekday: 'long'
         };
         const dateText = selectedDate.toLocaleDateString('hu-HU', options);
-        dateDisplay.innerHTML = `Kiválasztott dátum: <span class="font-semibold text-playful-purple">${dateText}</span>`;
+        dateDisplay.innerHTML = `SELECTED DATE: <span class="font-semibold text-cyan-400">${dateText}</span>`;
     }
 }
 
@@ -236,7 +236,7 @@ function generateTimeSlots() {
 
     if (!selectedDate) {
         timeSlotsContainer.innerHTML =
-            '<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 rounded-xl">Időpontok betöltése...</p>';
+            '<p class="text-gray-500 text-sm text-center py-12 px-6 col-span-full font-normal">LOADING TIME SLOTS...</p>';
         return;
     }
 
@@ -279,7 +279,7 @@ function generateTimeSlots() {
     // Render slots
     if (availableSlots.length === 0) {
         timeSlotsContainer.innerHTML =
-            `<p class="text-gray-400 text-sm text-center py-12 px-6 col-span-full font-normal bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 rounded-xl">${emptyMessage}</p>`;
+            `<p class="text-gray-500 text-sm text-center py-12 px-6 col-span-full font-normal">${emptyMessage}</p>`;
         return;
     }
 
@@ -297,12 +297,12 @@ function generateTimeSlots() {
 
 function createTimeSlotElement(slot) {
     const slotEl = document.createElement('div');
-    slotEl.className = 'px-3 py-2 border-2 border-white/30 rounded-xl bg-gradient-to-r from-white/90 to-playful-blue/10 cursor-pointer text-center text-xs font-bold text-gray-700 transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-lg hover:border-playful-purple/50 hover:bg-gradient-to-r hover:from-playful-purple hover:to-playful-pink hover:text-white hover:-translate-y-1 hover:shadow-xl hover:scale-105 backdrop-blur-sm';
+    slotEl.className = 'px-3 py-2 border border-gray-600 bg-gray-800 cursor-pointer text-center text-xs font-bold text-gray-300 transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border hover:bg-gray-700 hover:text-white hover:border-cyan-400';
     slotEl.textContent = slot;
     slotEl.addEventListener('click', () => selectTime(slot));
 
     if (selectedTime === slot) {
-        slotEl.className = 'px-3 py-2 border-transparent rounded-xl bg-gradient-to-br from-playful-purple via-playful-pink to-playful-orange text-white cursor-pointer text-center text-xs font-bold transition-all duration-300 w-full h-auto min-h-10 flex items-center justify-center box-border shadow-2xl scale-110 animate-pulse';
+        slotEl.className = 'px-3 py-2 border-cyan-400 bg-cyan-400 text-black cursor-pointer text-center text-xs font-bold transition-all duration-200 w-full h-auto min-h-10 flex items-center justify-center box-border scale-105';
     }
 
     return slotEl;
@@ -318,9 +318,9 @@ function updateTabStyles() {
     for (let i = 1; i <= 6; i++) {
         const tabElement = document.getElementById(`interval${i}Tab`);
         if (i === currentTimeTab) {
-            tabElement.className = 'py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg';
+            tabElement.className = 'py-2 px-3 text-xs font-medium transition-all duration-200 bg-cyan-400 text-black';
         } else {
-            tabElement.className = 'py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800';
+            tabElement.className = 'py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700';
         }
     }
 }

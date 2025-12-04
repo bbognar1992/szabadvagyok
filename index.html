@@ -37,29 +37,25 @@
         }
     </script>
 </head>
-<body class="font-poppins bg-gradient-to-br from-playful-purple via-playful-pink to-playful-blue min-h-screen flex flex-col p-4 text-gray-800">
+<body class="font-mono bg-black min-h-screen flex flex-col p-4 text-white">
     <div class="flex-1 flex items-center justify-center">
         <div class="w-full max-w-6xl mx-auto">
 
-        <div class="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden max-w-md mx-auto border-2 border-white/20 relative">
+        <div class="bg-gray-900 overflow-hidden max-w-md mx-auto border border-gray-700 relative">
             <!-- Header Section -->
-            <div class="px-8 py-8 bg-gradient-to-r from-playful-purple/10 to-playful-pink/10 flex justify-center items-center relative overflow-hidden">
-                <!-- Animated background pattern -->
-                <div class="absolute inset-0 opacity-10">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-playful-purple/20 via-playful-pink/20 to-playful-blue/20 animate-pulse-slow"></div>
-                </div>
-
-                <div class="flex flex-col items-center gap-2 relative z-10">
+            <div class="px-8 py-8 bg-gray-800 flex justify-center items-center relative overflow-hidden border-b border-gray-700">
+                <div class="flex flex-col items-center gap-2">
                     <div class="flex items-center gap-3 text-lg font-medium">
-                        <span class="text-playful-purple font-bold tracking-wide animate-pulse">✨ szabad vagyok</span>
-                        <span class="text-playful-pink text-xl animate-bounce">/</span>
-                        <span class="text-playful-blue font-medium">Bence Bognár</span>
+                        <span class="text-cyan-400 font-bold tracking-wider">></span>
+                        <span class="text-white font-bold tracking-wide">SZABAD VAGYOK</span>
+                        <span class="text-cyan-400 font-bold tracking-wider">/</span>
+                        <span class="text-gray-300 font-medium">BENCE BOGNÁR</span>
                     </div>
                 </div>
             </div>
 
             <!-- Main Content -->
-            <div class="p-8 bg-white/95 min-h-[600px] max-h-[750px] flex flex-col items-center relative overflow-y-auto">
+            <div class="p-8 bg-gray-900 min-h-[600px] max-h-[750px] flex flex-col items-center relative overflow-y-auto">
                 <!-- Progress Indicator -->
                 <div class="flex items-center justify-center mb-8 w-full max-w-xs">
                     <div class="flex items-center space-x-4">
@@ -82,15 +78,15 @@
                     <!-- Step 1: Date Selection -->
                     <div class="step-content" id="stepDateSelection">
                         <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800 mb-3">Válassz egy dátumot 📅</h2>
+                            <h2 class="text-2xl font-bold text-white mb-3 border-b border-cyan-400 pb-2">SELECT DATE</h2>
                         </div>
 
                         <!-- Calendar Section -->
-                        <div class="rounded-2xl p-6 border border-white/20 transition-all duration-300 transform hover:-translate-y-1" id="calendarSection">
+                        <div class="p-6 border border-gray-700" id="calendarSection">
                             <div class="flex items-center justify-between mb-6">
-                                <button class="bg-gradient-to-r from-playful-purple to-playful-pink w-10 h-10 rounded-xl cursor-pointer flex items-center justify-center text-lg text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5" id="prevMonth">‹</button>
-                                <h2 class="text-2xl font-bold bg-gradient-to-r from-playful-purple to-playful-pink bg-clip-text text-transparent" id="monthYear">December 2025</h2>
-                                <button class="bg-gradient-to-r from-playful-purple to-playful-pink w-10 h-10 rounded-xl cursor-pointer flex items-center justify-center text-lg text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5" id="nextMonth">›</button>
+                                <button class="bg-gray-700 hover:bg-gray-600 w-10 h-10 cursor-pointer flex items-center justify-center text-lg text-cyan-400 transition-all duration-200 hover:scale-105" id="prevMonth">‹</button>
+                                <h2 class="text-xl font-bold text-white" id="monthYear">DECEMBER 2025</h2>
+                                <button class="bg-gray-700 hover:bg-gray-600 w-10 h-10 cursor-pointer flex items-center justify-center text-lg text-cyan-400 transition-all duration-200 hover:scale-105" id="nextMonth">›</button>
                             </div>
                             <div class="grid grid-cols-7 gap-3" id="calendarGrid">
                                 <!-- Calendar days will be generated by JavaScript -->
@@ -102,35 +98,35 @@
                     <div class="step-content hidden" id="stepTimeSelection">
                         <div>
                             <div class="text-center mb-8">
-                                <h2 class="text-3xl font-bold text-gray-800 mb-3">Válassz egy időpontot ⏰</h2>
-                                <p class="text-gray-600 text-base" id="selectedDateDisplay">Kiválasztott dátum: <span class="font-semibold text-playful-purple">-</span></p>
+                                <h2 class="text-2xl font-bold text-white mb-3 border-b border-cyan-400 pb-2">SELECT TIME</h2>
+                                <p class="text-gray-400 text-sm" id="selectedDateDisplay">SELECTED DATE: <span class="font-semibold text-cyan-400">-</span></p>
                             </div>
 
                             <!-- Time Slots Section -->
-                            <div class="rounded-2xl p-6 border border-white/20 transition-all duration-300 transform hover:-translate-y-1 mb-8" id="timeSlotsSection">
+                            <div class="p-6 border border-gray-700 mb-8" id="timeSlotsSection">
                                 <div class="flex items-center gap-3 mb-6 text-sm">
-                                    <span class="text-playful-purple font-bold">⏰ Idő</span>
-                                    <span class="text-gray-600 font-medium" id="timezoneDisplay">Central European Time (16:01)</span>
+                                    <span class="text-cyan-400 font-bold">TIME</span>
+                                    <span class="text-gray-400 font-medium" id="timezoneDisplay">CET (16:01)</span>
                                 </div>
 
                                 <!-- Time Slot Tabs -->
                                 <div class="grid grid-cols-3 gap-2 mb-6">
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-playful-purple to-playful-pink text-white shadow-lg" id="interval1Tab">
-                                        8:00-10:00
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 bg-cyan-400 text-black hover:bg-cyan-300" id="interval1Tab">
+                                        08:00-10:00
                                     </button>
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800" id="interval2Tab">
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700" id="interval2Tab">
                                         10:00-12:00
                                     </button>
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800" id="interval3Tab">
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700" id="interval3Tab">
                                         12:00-14:00
                                     </button>
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800" id="interval4Tab">
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700" id="interval4Tab">
                                         14:00-16:00
                                     </button>
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800" id="interval5Tab">
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700" id="interval5Tab">
                                         16:00-18:00
                                     </button>
-                                    <button class="py-2 px-3 rounded-lg text-xs font-medium transition-all duration-300 text-gray-600 hover:text-gray-800" id="interval6Tab">
+                                    <button class="py-2 px-3 text-xs font-medium transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-700" id="interval6Tab">
                                         18:00-20:00
                                     </button>
                                 </div>
@@ -149,16 +145,16 @@
                     <div class="step-content hidden" id="stepBookingDetails">
                         <div>
                             <div class="text-center mb-8">
-                                <h2 class="text-3xl font-bold text-gray-800 mb-3">Foglalás részletei 📝</h2>
+                                <h2 class="text-2xl font-bold text-white mb-3 border-b border-cyan-400 pb-2">BOOKING DETAILS</h2>
                             </div>
 
                             <!-- Booking Summary -->
                             <div class="mb-12">
-                                <div class="p-6 bg-gradient-to-r from-white/90 to-playful-purple/5 rounded-2xl border-2 border-white/30 shadow-xl backdrop-blur-sm">
-                                    <div class="flex justify-between items-center gap-6 text-sm font-bold text-gray-800">
+                                <div class="p-6 bg-gray-800 border border-gray-600">
+                                    <div class="flex justify-between items-center gap-6 text-sm font-bold text-white">
                                         <span id="summaryDate">-</span>
                                         <span id="summaryTime">-</span>
-                                        <span id="summaryDuration">15 perc</span>
+                                        <span id="summaryDuration">15 MIN</span>
                                     </div>
                                 </div>
                             </div>
@@ -166,19 +162,19 @@
                             <!-- Contact Form -->
                             <div class="flex flex-col gap-4">
                                 <div class="flex flex-col gap-2">
-                                    <label for="guestName" class="text-sm font-semibold text-playful-purple">👤 Teljes név</label>
-                                    <input type="text" id="guestName" class="w-full px-5 py-4 border-2 border-white/30 rounded-xl text-base font-medium text-gray-700 bg-white/90 backdrop-blur-sm transition-all duration-300 box-border shadow-lg placeholder:text-gray-400 focus:outline-none focus:border-playful-purple focus:bg-white focus:ring-4 focus:ring-playful-purple/20 focus:shadow-xl hover:border-playful-purple/50 hover:shadow-xl" placeholder="Add meg a teljes neved" required>
+                                    <label for="guestName" class="text-sm font-semibold text-cyan-400">NAME</label>
+                                    <input type="text" id="guestName" class="w-full px-4 py-3 border border-gray-600 text-base font-medium text-white bg-gray-800 transition-all duration-200 box-border placeholder:text-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" placeholder="ENTER YOUR FULL NAME" required>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label for="guestEmail" class="text-sm font-semibold text-playful-blue">📧 Email cím</label>
-                                    <input type="email" id="guestEmail" class="w-full px-5 py-4 border-2 border-white/30 rounded-xl text-base font-medium text-gray-700 bg-white/90 backdrop-blur-sm transition-all duration-300 box-border shadow-lg placeholder:text-gray-400 focus:outline-none focus:border-playful-blue focus:bg-white focus:ring-4 focus:ring-playful-blue/20 focus:shadow-xl hover:border-playful-blue/50 hover:shadow-xl" placeholder="érvényes email cím szükséges" required>
+                                    <label for="guestEmail" class="text-sm font-semibold text-cyan-400">EMAIL</label>
+                                    <input type="email" id="guestEmail" class="w-full px-4 py-3 border border-gray-600 text-base font-medium text-white bg-gray-800 transition-all duration-200 box-border placeholder:text-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" placeholder="ENTER VALID EMAIL ADDRESS" required>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Confirm Button -->
                         <div class="flex justify-center mt-12 mb-8">
-                            <button class="bg-gradient-to-r from-playful-purple via-playful-pink to-playful-orange text-white border-none rounded-xl py-4 px-8 font-bold cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" id="confirmBooking" disabled>🚀 Foglalás megerősítése</button>
+                            <button class="bg-cyan-400 hover:bg-cyan-300 text-black border-none py-3 px-6 font-bold cursor-pointer transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" id="confirmBooking" disabled>CONFIRM BOOKING</button>
                         </div>
 
                     </div>
@@ -191,7 +187,7 @@
     <!-- Footer -->
     <footer class="w-full max-w-6xl mx-auto mt-8 mb-4">
         <div class="text-center">
-            <div class="text-sm text-gray-600 font-medium bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 inline-block border border-white/20">© 2025 Bence Bognár ✨ Minden jog fenntartva.</div>
+            <div class="text-xs text-gray-500 font-medium border-t border-gray-700 pt-4">© 2025 BENCE BOGNÁR | ALL RIGHTS RESERVED</div>
         </div>
     </footer>
 
