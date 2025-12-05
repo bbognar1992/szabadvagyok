@@ -58,30 +58,20 @@
             <div class="p-8">
                 <!-- Header Section -->
                 <div class="text-center mb-8">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Set your availability</h1>
-                    <p class="text-gray-600 mb-6">Configure when you're available for appointments</p>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Állítsd be az elérhetőségeidet</h1>
+                    <p class="text-gray-600 mb-6">Állítsd be, mikor vagy elérhető időpontfoglalásra</p>
 
-                    <!-- Time Zone Display -->
-                    <div class="inline-block bg-gray-100 px-4 py-2 rounded-lg text-sm text-gray-700 font-medium mb-6">
-                        Central European Time (<span id="currentTime">14:03</span>)
-                    </div>
                 </div>
 
                 <!-- Simplified Availability Panel -->
                 <div class="max-w-4xl mx-auto mt-8">
-                    <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <h3 class="text-xl font-semibold text-gray-900">Set your availability</h3>
-                                <p class="text-sm text-gray-600 mt-1">Configure when you're available for appointments</p>
-                            </div>
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900">Állítsd be az elérhetőségeidet</h3>
+                            <p class="text-sm text-gray-600 mt-1">Állítsd be, mikor vagy elérhető időpontfoglalásra</p>
                         </div>
+                    </div>
 
-                        <!-- Timezone Display -->
-                        <div class="mb-6 p-3 bg-gray-50 rounded-lg text-center">
-                            <span class="text-sm font-medium text-gray-700">Current timezone:</span>
-                            <span class="text-sm font-semibold text-gray-900 ml-1" id="currentTimeDisplay">Central European Time (15:05)</span>
-                        </div>
 
                         <!-- Main Availability Settings -->
                         <div class="space-y-4">
@@ -90,24 +80,24 @@
                                 <!-- First row -->
                                 <div class="schedule-row flex items-end space-x-4 p-4 bg-gray-50 rounded-lg">
                                     <div class="flex-1">
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Available days</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Elérhető napok</label>
                                         <select class="day-selector w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
-                                            <option value="weekdays">Mon - Fri (Weekdays)</option>
-                                            <option value="weekend">Sat - Sun (Weekend)</option>
-                                            <option value="monday">Monday</option>
-                                            <option value="tuesday">Tuesday</option>
-                                            <option value="wednesday">Wednesday</option>
-                                            <option value="thursday">Thursday</option>
-                                            <option value="friday">Friday</option>
-                                            <option value="saturday">Saturday</option>
-                                            <option value="sunday">Sunday</option>
+                                            <option value="weekdays">Hétfő - Péntek (Hétköznapok)</option>
+                                            <option value="weekend">Szombat - Vasárnap (Hétvége)</option>
+                                            <option value="monday">Hétfő</option>
+                                            <option value="tuesday">Kedd</option>
+                                            <option value="wednesday">Szerda</option>
+                                            <option value="thursday">Csütörtök</option>
+                                            <option value="friday">Péntek</option>
+                                            <option value="saturday">Szombat</option>
+                                            <option value="sunday">Vasárnap</option>
                                         </select>
                                     </div>
                                     <div class="flex-1">
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Available hours</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Elérhető órák</label>
                                         <div class="flex items-center space-x-2">
                                             <input type="time" class="start-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm" value="09:00">
-                                            <span class="text-gray-500">to</span>
+                                            <span class="text-gray-500">-</span>
                                             <input type="time" class="end-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm" value="17:00">
                                         </div>
                                     </div>
@@ -127,46 +117,18 @@
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                     </svg>
-                                    Add more weekday
+                                    További hétköznap hozzáadása
                                 </button>
                             </div>
 
-                            <!-- Duration Selection -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Meeting duration</label>
-                                <div class="flex flex-wrap gap-2" id="durations">
-                                    <button type="button" class="duration-btn px-4 py-2 border-2 border-green-500 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100" data-duration="30">30 min</button>
-                                    <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="60">60 min</button>
-                                    <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="90">90 min</button>
-                                    <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="120">120 min</button>
-                                </div>
-                            </div>
-
-                            <!-- Quick Actions -->
-                            <div class="border-t pt-4">
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="button" class="flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                        </svg>
-                                        Add weekday
-                                    </button>
-                                    <button type="button" class="flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                        </svg>
-                                        Add specific date
-                                    </button>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Breaks Section -->
-                        <div class="mt-8 border-t pt-8">
+                        <div class="mt-8">
                             <div class="flex justify-between items-center mb-6">
                                 <div>
-                                    <h3 class="text-xl font-semibold text-gray-900">Set break times</h3>
-                                    <p class="text-sm text-gray-600 mt-1">Define when you want to block time for breaks during your availability</p>
+                                    <h3 class="text-xl font-semibold text-gray-900">Szünetek beállítása</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Határozd meg, mikor szeretnél szünetet tartani az elérhetőségeid során</p>
                                 </div>
                             </div>
 
@@ -181,8 +143,30 @@
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                     </svg>
-                                    Add break time
+                                    Szünet hozzáadása
                                 </button>
+                            </div>
+                        </div>
+
+                        <!-- Duration Selection (moved to bottom) -->
+                        <div class="mt-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-gray-900">Találkozó beállítások</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Állítsd be a találkozók időtartamát</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Találkozó időtartama</label>
+                                    <div class="flex flex-wrap gap-2" id="durations">
+                                        <button type="button" class="duration-btn px-4 py-2 border-2 border-green-500 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100" data-duration="30">30 min</button>
+                                        <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="60">60 min</button>
+                                        <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="90">90 min</button>
+                                        <button type="button" class="duration-btn px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50" data-duration="120">120 min</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

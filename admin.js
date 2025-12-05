@@ -7,11 +7,7 @@ function updateCurrentTime() {
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const timeString = `${hours}:${minutes}`;
 
-    // Update the timezone display in the simplified panel
-    const timezoneElement = document.getElementById('currentTimeDisplay');
-    if (timezoneElement) {
-        timezoneElement.textContent = `Central European Time (${timeString})`;
-    }
+    // Timezone display removed - no longer updating
 }
 
 // Handle duration button clicks
@@ -60,27 +56,27 @@ function addScheduleRow() {
         <div class="flex-1">
             <label class="block text-sm font-medium text-gray-700 mb-2">Available days</label>
             <select class="day-selector w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
-                <option value="weekdays">Mon - Fri (Weekdays)</option>
-                <option value="weekend">Sat - Sun (Weekend)</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
+                <option value="weekdays">Hétfő - Péntek (Hétköznapok)</option>
+                <option value="weekend">Szombat - Vasárnap (Hétvége)</option>
+                <option value="monday">Hétfő</option>
+                <option value="tuesday">Kedd</option>
+                <option value="wednesday">Szerda</option>
+                <option value="thursday">Csütörtök</option>
+                <option value="friday">Péntek</option>
+                <option value="saturday">Szombat</option>
+                <option value="sunday">Vasárnap</option>
             </select>
         </div>
         <div class="flex-1">
             <label class="block text-sm font-medium text-gray-700 mb-2">Available hours</label>
             <div class="flex items-center space-x-2">
                 <input type="time" class="start-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm" value="09:00">
-                <span class="text-gray-500">to</span>
+                <span class="text-gray-500">-</span>
                 <input type="time" class="end-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm" value="17:00">
             </div>
         </div>
         <div class="flex-shrink-0">
-            <button type="button" class="delete-row-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 opacity-100 transition-opacity" title="Remove this schedule">
+            <button type="button" class="delete-row-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 opacity-100 transition-opacity" title="Ütemezés eltávolítása">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                 </svg>
@@ -106,27 +102,27 @@ function addBreakRow() {
         <div class="flex-1">
             <label class="block text-sm font-medium text-gray-700 mb-2">Available days</label>
             <select class="break-day-selector w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
-                <option value="weekdays">Mon - Fri (Weekdays)</option>
-                <option value="weekend">Sat - Sun (Weekend)</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
+                <option value="weekdays">Hétfő - Péntek (Hétköznapok)</option>
+                <option value="weekend">Szombat - Vasárnap (Hétvége)</option>
+                <option value="monday">Hétfő</option>
+                <option value="tuesday">Kedd</option>
+                <option value="wednesday">Szerda</option>
+                <option value="thursday">Csütörtök</option>
+                <option value="friday">Péntek</option>
+                <option value="saturday">Szombat</option>
+                <option value="sunday">Vasárnap</option>
             </select>
         </div>
         <div class="flex-1">
             <label class="block text-sm font-medium text-gray-700 mb-2">Available hours</label>
             <div class="flex items-center space-x-2">
                 <input type="time" class="break-start-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm" value="12:00">
-                <span class="text-gray-500">to</span>
+                <span class="text-gray-500">-</span>
                 <input type="time" class="break-end-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm" value="13:00">
             </div>
         </div>
         <div class="flex-shrink-0">
-            <button type="button" class="delete-break-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 opacity-100 transition-opacity" title="Remove this break">
+            <button type="button" class="delete-break-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 opacity-100 transition-opacity" title="Szünet eltávolítása">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                 </svg>
@@ -143,7 +139,7 @@ function addBreakRow() {
 // Delete schedule row
 function deleteScheduleRow(button) {
     const row = button.closest('.schedule-row');
-    if (row && confirm('Are you sure you want to remove this schedule?')) {
+    if (row && confirm('Biztosan el akarod távolítani ezt az ütemezést?')) {
         row.remove();
     }
 }
@@ -151,7 +147,7 @@ function deleteScheduleRow(button) {
 // Delete break row
 function deleteBreakRow(button) {
     const row = button.closest('.break-row');
-    if (row && confirm('Are you sure you want to remove this break?')) {
+    if (row && confirm('Biztosan el akarod távolítani ezt a szünetet?')) {
         row.remove();
     }
 }
@@ -247,7 +243,7 @@ function handleAvailabilityPanel() {
 
     if (addDateBtn) {
         addDateBtn.addEventListener('click', () => {
-            alert('Add specific date functionality - would open date picker');
+            alert('Konkrét dátum hozzáadása funkció - dátumválasztó megnyitása');
         });
     }
 
@@ -311,9 +307,9 @@ function saveSettings() {
 
 // Initialize admin panel
 function initAdminPanel() {
-    // Update time immediately and then every minute
-    updateCurrentTime();
-    setInterval(updateCurrentTime, 60000);
+    // Timezone display removed - no longer updating time
+    // updateCurrentTime();
+    // setInterval(updateCurrentTime, 60000);
 
     // Set up event listeners
     const saveButton = document.getElementById('saveSettings');
