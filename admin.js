@@ -94,10 +94,64 @@ function addScheduleRow() {
     attachRowEventListeners(newRow);
 }
 
+// Add new break row
+function addBreakRow() {
+    const breakRows = document.getElementById('breakRows');
+    if (!breakRows) return;
+
+    const rowCount = breakRows.children.length + 1;
+    const newRow = document.createElement('div');
+    newRow.className = 'break-row flex items-end space-x-4 p-4 bg-orange-50 rounded-lg group';
+    newRow.innerHTML = `
+        <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Available days</label>
+            <select class="break-day-selector w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
+                <option value="weekdays">Mon - Fri (Weekdays)</option>
+                <option value="weekend">Sat - Sun (Weekend)</option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select>
+        </div>
+        <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Available hours</label>
+            <div class="flex items-center space-x-2">
+                <input type="time" class="break-start-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm" value="12:00">
+                <span class="text-gray-500">to</span>
+                <input type="time" class="break-end-time flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm" value="13:00">
+            </div>
+        </div>
+        <div class="flex-shrink-0">
+            <button type="button" class="delete-break-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 opacity-100 transition-opacity" title="Remove this break">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+            </button>
+        </div>
+    `;
+
+    breakRows.appendChild(newRow);
+
+    // Add event listeners to the new break row elements
+    attachBreakRowEventListeners(newRow);
+}
+
 // Delete schedule row
 function deleteScheduleRow(button) {
     const row = button.closest('.schedule-row');
     if (row && confirm('Are you sure you want to remove this schedule?')) {
+        row.remove();
+    }
+}
+
+// Delete break row
+function deleteBreakRow(button) {
+    const row = button.closest('.break-row');
+    if (row && confirm('Are you sure you want to remove this break?')) {
         row.remove();
     }
 }
@@ -135,6 +189,39 @@ function attachRowEventListeners(row) {
     }
 }
 
+// Attach event listeners to a break row
+function attachBreakRowEventListeners(row) {
+    // Break day selector change
+    const daySelector = row.querySelector('.break-day-selector');
+    if (daySelector) {
+        daySelector.addEventListener('change', (e) => {
+            console.log('Break days selected:', e.target.value);
+        });
+    }
+
+    // Break time inputs change
+    const startTime = row.querySelector('.break-start-time');
+    const endTime = row.querySelector('.break-end-time');
+
+    if (startTime) {
+        startTime.addEventListener('change', (e) => {
+            console.log('Break start time changed:', e.target.value);
+        });
+    }
+
+    if (endTime) {
+        endTime.addEventListener('change', (e) => {
+            console.log('Break end time changed:', e.target.value);
+        });
+    }
+
+    // Delete button
+    const deleteBtn = row.querySelector('.delete-break-btn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', () => deleteBreakRow(deleteBtn));
+    }
+}
+
 // Handle simplified availability panel interactions
 function handleAvailabilityPanel() {
     // Handle duration buttons
@@ -149,19 +236,18 @@ function handleAvailabilityPanel() {
         addWeekdayBtn.addEventListener('click', addScheduleRow);
     }
 
+    // Handle add break button
+    const addBreakBtn = document.getElementById('addBreakBtn');
+    if (addBreakBtn) {
+        addBreakBtn.addEventListener('click', addBreakRow);
+    }
+
     // Handle other action buttons
     const addDateBtn = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.includes('Add specific date'));
-    const addBreakBtn = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.includes('Add break time'));
 
     if (addDateBtn) {
         addDateBtn.addEventListener('click', () => {
             alert('Add specific date functionality - would open date picker');
-        });
-    }
-
-    if (addBreakBtn) {
-        addBreakBtn.addEventListener('click', () => {
-            alert('Add break time functionality - would open break time configuration');
         });
     }
 
@@ -190,10 +276,29 @@ function saveSettings() {
         }
     });
 
+    // Get all break rows
+    const breakRows = document.querySelectorAll('.break-row');
+    const breaks = [];
+
+    breakRows.forEach((row, index) => {
+        const daySelector = row.querySelector('.break-day-selector');
+        const startTime = row.querySelector('.break-start-time');
+        const endTime = row.querySelector('.break-end-time');
+
+        if (daySelector && startTime && endTime) {
+            breaks.push({
+                days: daySelector.value,
+                startTime: startTime.value,
+                endTime: endTime.value
+            });
+        }
+    });
+
     const selectedDuration = document.querySelector('.duration-btn.border-green-500')?.dataset.duration;
 
     const settings = {
         schedules: schedules,
+        breaks: breaks,
         duration: selectedDuration
     };
 
